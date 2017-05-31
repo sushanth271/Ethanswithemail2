@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.vegella.android.ethans.R.id.parent;
 
@@ -60,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         spinner_s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getBaseContext(),parent.getItemAtPosition(position)+" selected",Toast.LENGTH_LONG).show();
+                //Toast.makeText(getBaseContext(),parent.getItemAtPosition(position)+" selected",Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -68,12 +70,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
-
-
-
-
 
 
         submit_btn.setOnClickListener(new View.OnClickListener() {
@@ -85,9 +81,61 @@ public class MainActivity extends AppCompatActivity {
                 phn = phone.getText().toString();
                 //course = course_st.getText().toString();
                 course = spinner_s.getSelectedItem().toString();
+
+
+                //validations code
+                String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+                String PHONE_PATTERN = "^[987]+[0-9]{9}$";
+                String NAMES = "^[a-zA-Z]+$";
+                Pattern pattern1 = Pattern.compile(EMAIL_PATTERN);
+                Matcher matcher1 = pattern1.matcher(emailid);   //matcher1 for emailid
+                Pattern pattern2 = Pattern.compile(PHONE_PATTERN);
+                Matcher matcher2 = pattern2.matcher(phn);    //matcher2 for phone number
+                Pattern pattern3 = Pattern.compile(NAMES);
+                Matcher matcher4 = pattern3.matcher(firstname);
+                Matcher matcher5 = pattern3.matcher(lastname);  //matcher3 for names
+
+
+                if(firstname.isEmpty())
+                {
+                    Toast.makeText(MainActivity.this,"Please enter first name",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                    if(!matcher4.matches())
+                {
+                    Toast.makeText(MainActivity.this,"Please enter valid first name",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(lastname.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Please enter last name", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(!matcher5.matches())
+                {
+                    Toast.makeText(MainActivity.this,"Please enter a valid last name",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if( !matcher2.matches() )
+                {
+                    Toast.makeText(MainActivity.this,"Please enter a valid Phone number",Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                if(!matcher1.matches())
+                {
+                    Toast.makeText(MainActivity.this,"Please enter a valid email address",Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+
+                //validation code ends
+
+
                 BackgroundWorker backgroundWorker = new BackgroundWorker();
                 backgroundWorker.execute(firstname, lastname, emailid, phn, course);
-                Toast.makeText(MainActivity.this, "Thank you. We will revert to you soon.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Thank you. We have mailed you the course details.", Toast.LENGTH_SHORT).show();
                // finish();
 
             }
