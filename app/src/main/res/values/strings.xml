@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Ethans</string>
+    <string-array name="courses">
+        <item>Python Programming</item>
+        <item>Hadoop 2.x with Spark</item>
+        <item>Amazon Web Services</item>
+        <item>Microsoft Azure</item>
+        <item>Selenium with Core Java</item>
+        <item>Devops</item>
+        <item>Data Science</item>
+        <item>Perl Scripting</item>
+        <item>Shell Scripting</item>
+        <item>Angular JS</item>
+        <item>ETL Testing with Informatica and Datastage</item>
+        <item>QTP/UTF</item>
+        <item>Sharepoint 2013</item>
+        <item>Informatica</item>
+    </string-array>
+</resources>
